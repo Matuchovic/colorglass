@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   COLOR design tokens (zdroj pravdy pro barvy, typografii, rádiusy a stíny)
+   ───────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-hand: var(--font-caveat), "Segoe Script", "Bradley Hand", cursive;
+  --font-display: var(--font-montserrat), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* Modrá COLOR – tlačítka a akcenty návrhu (#0C60FE) */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe7ff;
+  --color-brand-200: #bfd4ff;
+  --color-brand-300: #93b6ff;
+  --color-brand-400: #5a8fff;
+  --color-brand-500: #2f74ff;
+  --color-brand-600: #0c60fe;
+  --color-brand-700: #004ce6;
+  --color-brand-800: #063fb8;
+  --color-brand-900: #0b378f;
+  --color-brand-950: #0b2257;
+  --color-sky-accent: #0ab4ff;
+
+  /* Navy / téměř černá pro text */
+  --color-ink-950: #030817;
+  --color-ink-900: #0a1226;
+  --color-ink-800: #1c2538;
+  --color-ink-700: #2d3748;
+  --color-ink-600: #4a5568;
+  --color-ink-500: #6b7486;
+  --color-ink-400: #8a95ad;
+  --color-ink-300: #b7c0d3;
+  --color-ink-200: #dde3ee;
+  --color-ink-100: #edf1f7;
+  --color-ink-50: #f6f8fc;
+
+  /* Plochy: velmi světlá modrošedá (dlaždice, pruhy), tmavý footer */
+  --color-surface: #f4f6fb;
+  --color-tile: #f6f8fb;
+  --color-navy: #142132;
+  --color-navy-deep: #0e1630;
+  --color-tech: #0f1522;
+  --color-surface-strong: #e9eff9;
+  --color-footer: #0a1230;
+
+  --color-success-50: #ecfdf3;
+  --color-success-500: #1fb85f;
+  --color-success-600: #15803d;
+  --color-warning-50: #fff7e6;
+  --color-warning-500: #f08c00;
+  --color-danger-50: #fef1f2;
+  --color-danger-500: #f3121f;
+  --color-danger-600: #c81e2a;
+  --color-star: #faa404;
+
+  --radius-btn: 10px;
+  --radius-field: 12px;
+  --radius-tile: 14px;
+  --radius-card: 16px;
+  --radius-hero: 22px;
+
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 6px 20px -6px rgb(16 24 40 / 0.08);
+  --shadow-lift: 0 2px 6px rgb(16 24 40 / 0.05), 0 18px 40px -12px rgb(16 24 40 / 0.18);
+  --shadow-drawer: -24px 0 60px -20px rgb(11 21 51 / 0.35);
+  --shadow-glass: 0 1px 0 rgb(255 255 255 / 0.7) inset, 0 12px 30px -12px rgb(27 49 135 / 0.25);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-drawer-in: drawer-in 280ms var(--ease-out-soft);
+  --animate-fade-in: fade-in 180ms ease-out;
+  --animate-pop: pop 320ms var(--ease-out-soft);
+  --animate-toast-in: toast-in 260ms var(--ease-out-soft);
+  --animate-shimmer: shimmer 1.4s linear infinite;
+
+  @keyframes drawer-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
+  @keyframes toast-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { from { background-position: -400px 0; } to { background-position: 400px 0; } }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 96px;
+  }
+  body {
+    background: #fff;
+    color: var(--color-ink-800);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    color: var(--color-ink-900);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--color-brand-100); color: var(--color-ink-900); }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  [hidden] { display: none !important; }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 1420px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) { .container-page { padding-inline: 1.5rem; } }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-700);
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-ink-100) 0%, var(--color-ink-50) 40%, var(--color-ink-100) 80%);
+    background-size: 800px 100%;
+    animation: var(--animate-shimmer);
+    border-radius: 10px;
+  }
+
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  /* Bezpečně vykreslený obsah (popisy produktů, informační stránky) */
+  .prose-color { color: var(--color-ink-700); line-height: 1.7; max-width: 72ch; }
+  .prose-color h2 { font-size: 1.25rem; font-weight: 700; margin: 1.75rem 0 0.6rem; }
+  .prose-color h3 { font-size: 1.05rem; font-weight: 700; margin: 1.4rem 0 0.5rem; }
+  .prose-color p { margin: 0.75rem 0; }
+  .prose-color ul, .prose-color ol { margin: 0.75rem 0; padding-left: 1.3rem; }
+  .prose-color ul { list-style: disc; }
+  .prose-color ol { list-style: decimal; }
+  .prose-color li { margin: 0.3rem 0; }
+  .prose-color a { color: var(--color-brand-700); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-color strong { color: var(--color-ink-900); font-weight: 700; }
+  .prose-color blockquote {
+    margin: 1rem 0; padding: 0.9rem 1.1rem; border-radius: 12px;
+    background: var(--color-warning-50); border: 1px solid #f7d59a; color: var(--color-ink-800);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── COLOR: duhové prvky z návrhu ─────────────────────────────────────────── */
+@layer components {
+  .font-display { font-family: var(--font-display); font-feature-settings: normal; }
+  /* „BAREV“ v hero – pastelová duha se září */
+  .text-rainbow-soft {
+    background: linear-gradient(100deg, #b7b9ff 0%, #8fb8ff 14%, #55d0ff 30%, #56f0c9 46%, #b9f36b 60%, #ffd96a 74%, #ff9cc9 88%, #f58dff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 22px rgb(140 170 255 / 0.35));
+  }
+  /* Kruh „O“ v logu a ikonách */
+  .ring-rainbow {
+    background: conic-gradient(from 200deg, #ff2d55, #ff9500, #ffd60a, #34c759, #00c7be, #0a84ff, #5e5ce6, #bf5af2, #ff2d55);
+  }
+  /* Zářivý přechodový rámeček (tlačítko ColorTest, „Jak to funguje?“) */
+  .glow-frame {
+    position: relative;
+    isolation: isolate;
+  }
+  .glow-frame::before {
+    content: "";
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(110deg, #22b8ff, #6a5cff 45%, #e04dff 80%, #ff6fb5);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+  }
+  .glow-frame::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    background: linear-gradient(110deg, #22b8ff, #6a5cff 45%, #e04dff 80%, #ff6fb5);
+    filter: blur(10px);
+    opacity: 0.45;
+    z-index: -2;
+  }
+  .btn-hero {
+    background: linear-gradient(90deg, #01a2ff 0%, #2f6bff 38%, #8b5cff 72%, #f458fd 100%);
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.18) inset, 0 10px 30px -8px rgb(70 120 255 / 0.85), 0 0 24px -4px rgb(244 88 253 / 0.45);
+  }
+}
