@@ -7,6 +7,8 @@ import { TechBanner } from "@/components/color/tech-banner";
 import { Benefits } from "@/components/color/benefits";
 import { ProductTabs } from "@/components/color/product-tabs";
 import { Stories } from "@/components/color/stories";
+import { RevealObserver } from "@/components/color/reveal";
+import type { CSSProperties } from "react";
 import { ProductCard } from "@/components/product/product-card";
 import { getDictionary } from "@/i18n";
 import { formatMoney } from "@/lib/format";
@@ -55,6 +57,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <RevealObserver />
       <Hero store={code} t={t} freeShipping={freeShipping} />
       <div className="relative z-20 -mt-10 rounded-t-[36px] bg-white pt-7 lg:-mt-[46px] lg:rounded-t-[44px] lg:pt-[34px]">
         <div className="container-page space-y-6 lg:space-y-[18px]">
@@ -70,8 +73,8 @@ export default async function HomePage({ params }: Props) {
         <ProductTabs title={t.color.products.title} tabs={[...t.color.products.tabs]} panels={lists.map((list, i) =>
           list.items.length ? (
             <ul key={i} className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6 lg:gap-[14px]">
-              {list.items.map((p) => (
-                <li key={p.id}><ProductCard product={p} store={store} t={t} showAltPrice={settings.showSecondaryCurrency} priority={i === 0} /></li>
+              {list.items.map((p, j) => (
+                <li key={p.id} data-reveal="" style={{ "--rd": `${j * 70}ms` } as CSSProperties}><ProductCard product={p} store={store} t={t} showAltPrice={settings.showSecondaryCurrency} priority={i === 0} /></li>
               ))}
             </ul>
           ) : (

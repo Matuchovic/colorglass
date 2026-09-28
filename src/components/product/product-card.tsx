@@ -32,7 +32,7 @@ export function ProductCard({ product, store, t, showAltPrice, priority = false 
   const outOfStock = product.stock === "out_of_stock";
 
   return (
-    <article className="group relative flex h-full flex-col rounded-[16px] bg-[#f4f7fb] ring-1 ring-[#e8edf5] transition duration-300 hover:-translate-y-0.5 hover:shadow-lift">
+    <article className="group relative flex h-full flex-col rounded-[16px] bg-[#f4f7fb] ring-1 ring-[#e8edf5] transition duration-300 hover:-translate-y-1.5 hover:ring-brand-200 hover:shadow-[0_22px_44px_-22px_rgb(12_60_160/0.45)]">
       <div className="relative px-3 pt-3">
         <div className="relative z-10 flex h-7 items-start justify-between">
           {badge ? (
@@ -43,11 +43,12 @@ export function ProductCard({ product, store, t, showAltPrice, priority = false 
           <WishlistButton productId={product.id} className="-mr-1.5 -mt-1.5 size-8" />
         </div>
         <Link href={href} className="block focus-visible:outline-offset-4" tabIndex={-1} aria-hidden="true">
-          <div className="relative -mt-3 aspect-[4/3] w-full">
+          <div className="relative -mt-3 aspect-[4/3] w-full overflow-hidden">
             {product.image && (
               <Image src={product.image.url} alt="" fill sizes="(min-width: 1280px) 220px, (min-width: 768px) 30vw, 45vw"
-                preload={priority} className="object-contain transition-transform duration-500 group-hover:scale-[1.05]" />
+                preload={priority} className="object-contain transition duration-500 ease-out group-hover:-rotate-3 group-hover:scale-[1.08]" />
             )}
+            <span aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(105deg,transparent_38%,rgb(255_255_255/0.7)_50%,transparent_62%)] transition-transform duration-700 ease-out group-hover:translate-x-full" />
           </div>
         </Link>
       </div>

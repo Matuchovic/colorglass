@@ -2,7 +2,7 @@ import "../globals.css";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
-import { caveat, jakarta, montserrat } from "../fonts";
+import { caveat, montserrat } from "../fonts";
 import { TopBar } from "@/components/layout/top-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -66,7 +66,7 @@ export default async function StoreLayout({ children, params }: { children: Reac
   };
 
   return (
-    <html lang={store.locale} className={`${jakarta.variable} ${caveat.variable} ${montserrat.variable}`}>
+    <html lang={store.locale} className={`${montserrat.variable} ${caveat.variable}`}>
       <body className="min-h-dvh bg-white font-sans text-ink-800 antialiased">
         <a href="#obsah" className="sr-only z-[80] rounded-btn bg-brand-600 px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
           {t.header.skipToContent}

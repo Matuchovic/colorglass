@@ -45,9 +45,10 @@ export function Header({ store, t, categories }: { store: StoreCode; t: Dictiona
           <div className="ml-auto flex items-center gap-1 lg:gap-8">
             <HeaderActions labels={{ wishlist: t.header.wishlist, cart: t.header.cart, cartCount: t.header.cartCount, wishlistCount: t.header.wishlistCount }}
               accountLabels={accountLabels} google={process.env.NEXT_PUBLIC_AUTH_GOOGLE === "true"} />
-            <Link href={p("/colortest")} className="glow-frame hidden h-[56px] items-center gap-3 rounded-[14px] bg-navy-deep pl-2.5 pr-5 lg:flex">
-              <span className="ring-rainbow grid size-[35px] place-items-center rounded-full p-[2.5px]">
-                <span className="grid size-full place-items-center rounded-full bg-gradient-to-br from-[#2e86ff] via-[#2456f5] to-[#5b35e8] text-white">
+            <Link href={p("/colortest")} className="glow-spin group hidden h-[56px] items-center gap-3 rounded-[14px] pl-2.5 pr-5 transition-transform hover:-translate-y-0.5 lg:flex [--glow-fill:#0e1630]">
+              <span className="relative grid size-[35px] place-items-center">
+                <span aria-hidden="true" className="ring-rainbow spin-slow absolute inset-0 rounded-full" />
+                <span className="relative grid size-[30px] place-items-center rounded-full bg-gradient-to-br from-[#2e86ff] via-[#2456f5] to-[#5b35e8] text-white transition-transform group-hover:scale-110">
                   <PlayIcon size={15} className="translate-x-[1px]" />
                 </span>
               </span>
@@ -65,9 +66,9 @@ export function Header({ store, t, categories }: { store: StoreCode; t: Dictiona
           }))} />
           <span aria-hidden="true" className="-mx-2 h-5 w-px bg-ink-200" />
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="flex items-center gap-2 text-[15px] font-medium text-ink-800 transition-colors hover:text-brand-700">
+            <Link key={l.href} href={l.href} className="nav-link flex items-center gap-2 text-[15px] font-medium text-ink-800 transition-colors hover:text-brand-700">
               {l.label}
-              {l.badge && <span className="rounded-full bg-brand-600 px-2 py-[3px] text-[11px] font-bold leading-none text-white">{l.badge}</span>}
+              {l.badge && <span className="badge-shine rounded-full bg-brand-600 px-2 py-[3px] text-[11px] font-bold leading-none text-white">{l.badge}</span>}
             </Link>
           ))}
         </nav>
