@@ -1,11 +1,13 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /** Odhaluje prvky s atributem data-reveal při scrollu. Co je už na obrazovce, zůstane viditelné (bez probliknutí). */
 export function RevealObserver() {
+  const pathname = usePathname();
   useEffect(() => {
     if (reduced()) return;
     const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
@@ -28,7 +30,7 @@ export function RevealObserver() {
       io.disconnect();
       document.documentElement.classList.remove("reveal-on");
     };
-  }, []);
+  }, [pathname]);
   return null;
 }
 

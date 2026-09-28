@@ -8,6 +8,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ShopProvider, type ClientLabels } from "@/components/providers/shop-provider";
 import { NewsletterStatusToast } from "@/components/home/newsletter-status-toast";
+import { ViewTransitions } from "@/components/effects/view-transitions";
+import { RevealObserver } from "@/components/color/reveal";
 import { getDictionary } from "@/i18n";
 import { formatMoney } from "@/lib/format";
 import { PREVIEW_MODE } from "@/lib/preview";
@@ -18,7 +20,7 @@ export function generateStaticParams() {
   return STORE_CODES.map((store) => ({ store }));
 }
 
-export const viewport: Viewport = { themeColor: "#ffffff", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#ffffff", width: "device-width", initialScale: 1, viewportFit: "cover", interactiveWidget: "resizes-content" };
 
 export async function generateMetadata({ params }: { params: Promise<{ store: string }> }): Promise<Metadata> {
   const { store: code } = await params;
@@ -78,7 +80,9 @@ export default async function StoreLayout({ children, params }: { children: Reac
           <Footer store={code} locale={store.locale} t={t} pages={pages} settings={settings} />
           <Suspense fallback={null}>
             <NewsletterStatusToast />
+            <ViewTransitions />
           </Suspense>
+          <RevealObserver />
         </ShopProvider>
       </body>
     </html>

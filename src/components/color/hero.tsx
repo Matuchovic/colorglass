@@ -45,7 +45,7 @@ export function Hero({ store, t, freeShipping }: { store: StoreCode; t: Dictiona
   const h = t.color.hero;
   const icons = [<TrialIcon key="a" size={30} />, <FastTruckIcon key="b" size={30} />, <ShieldOkIcon key="c" size={28} />, <SupportIcon key="d" size={28} />];
   return (
-    <ParallaxScene className="relative lg:-mt-[52px]">
+    <ParallaxScene className="relative lg:-mt-[54px]">
       <div className="relative isolate h-[600px] overflow-hidden bg-[#0d0f14] sm:h-[620px] lg:h-[650px]">
         <BeforeAfter before="/images/color/hero-grey.webp" after="/images/color/hero-color.webp" alt={h.imageAlt}
           labels={{ without: h.without, with: h.with, slider: h.slider }} initial={51} />

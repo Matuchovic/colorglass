@@ -79,7 +79,7 @@ export function ColorTest({ t, store, showAltPrice, recommendations, links }: {
     const plate = PLATES[index]!;
     return (
       <div className="grid items-center gap-8 rounded-[24px] border border-[#e3e9f6] bg-[#f1f5fe] p-6 sm:p-10 lg:grid-cols-[400px_1fr] lg:gap-14">
-        <div className="mx-auto w-full max-w-[360px]"><PlateCanvas index={index} label={fmt(c.plateLabel, { n: index + 1 })} /></div>
+        <div key={index} className="plate-in mx-auto w-full max-w-[360px]"><PlateCanvas index={index} label={fmt(c.plateLabel, { n: index + 1 })} /></div>
         <div>
           <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand-700" aria-live="polite">{fmt(c.progress, { n: index + 1, total })}</p>
           <div className="mt-3 h-2 overflow-hidden rounded-full bg-white ring-1 ring-[#e3e9f6]">
@@ -110,7 +110,8 @@ export function ColorTest({ t, store, showAltPrice, recommendations, links }: {
   const r = c.results[result];
   return (
     <div className="space-y-10">
-      <div className="rounded-[24px] border border-[#e3e9f6] bg-[#f1f5fe] p-6 sm:p-10" aria-live="polite">
+      <div className="relative isolate overflow-hidden rounded-[24px] border border-[#e3e9f6] bg-[#f1f5fe] p-6 sm:p-10" aria-live="polite">
+        <span aria-hidden="true" className="result-bloom -z-10" />
         <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-brand-700">{c.resultTitle}</p>
         <h2 className="mt-3 font-display text-[30px] font-extrabold leading-tight text-ink-950">{r.title}</h2>
         <p className="mt-3 max-w-[680px] text-[16px] leading-relaxed text-ink-700">{r.text}</p>

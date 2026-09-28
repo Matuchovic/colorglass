@@ -8,14 +8,14 @@ import { fmt } from "@/i18n";
 import { storePath } from "@/lib/store";
 import type { ReactNode } from "react";
 
-function Action({ href, label, icon, badge, ariaLabel }: { href: string; label: string; icon: ReactNode; badge?: number; ariaLabel?: string }) {
+function Action({ href, label, icon, badge, ariaLabel, cart }: { href: string; label: string; icon: ReactNode; badge?: number; ariaLabel?: string; cart?: boolean }) {
   return (
     <Link href={href} aria-label={ariaLabel ?? label}
       className="group flex flex-col items-center gap-1 rounded-btn px-1.5 py-1 text-ink-800 transition-colors hover:text-brand-700 sm:px-2">
-      <span className="relative">
+      <span className="relative" data-cart-target={cart ? "" : undefined}>
         {icon}
         {badge !== undefined && (
-          <span className="absolute -right-2.5 -top-2 grid h-[19px] min-w-[19px] place-items-center rounded-full bg-brand-600 px-1 text-[11px] font-bold leading-none text-white ring-2 ring-white tabular-nums">
+          <span key={badge} className="absolute -right-2.5 -top-2 grid h-[19px] min-w-[19px] animate-pop place-items-center rounded-full bg-brand-600 px-1 text-[11px] font-bold leading-none text-white ring-2 ring-white tabular-nums">
             {badge > 99 ? "99+" : badge}
           </span>
         )}
@@ -36,7 +36,7 @@ export function HeaderActions({ labels, accountLabels, google }: {
       <AccountMenu labels={accountLabels} google={google} />
       <Action href={storePath(store, "/oblibene")} label={labels.wishlist} icon={<HeartIcon size={26} />}
         badge={wishlist.length} ariaLabel={fmt(labels.wishlistCount, { count: wishlist.length })} />
-      <Action href={storePath(store, "/kosik")} label={labels.cart} icon={<CartIcon size={26} />}
+      <Action href={storePath(store, "/kosik")} label={labels.cart} cart icon={<CartIcon size={26} />}
         badge={cartCount} ariaLabel={fmt(labels.cartCount, { count: cartCount })} />
     </div>
   );

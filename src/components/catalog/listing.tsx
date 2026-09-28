@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 import { ProductCard } from "@/components/product/product-card";
 import { SortSelect } from "./sort-select";
@@ -124,7 +125,7 @@ export async function Listing({ store, t, path, base, searchParams, defaultSort 
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
             {result.items.map((p, i) => (
-              <ProductCard key={p.id} product={p} store={store} t={t} showAltPrice={settings.showSecondaryCurrency} priority={i < 4} />
+              <div key={p.id} data-reveal="" className="h-full" style={{ "--rd": `${(i % 4) * 70}ms` } as CSSProperties}><ProductCard product={p} store={store} t={t} showAltPrice={settings.showSecondaryCurrency} priority={i < 4} /></div>
             ))}
           </div>
         )}

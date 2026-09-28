@@ -5,6 +5,7 @@ import { CartIcon, CheckIcon, TruckIcon } from "@/components/icons";
 import { WishlistButton } from "./product-actions";
 import { useShop } from "@/components/providers/shop-provider";
 import { addToCartAction } from "@/actions/shop";
+import { flyToCart } from "@/lib/fly-to-cart";
 import { discountPercent, formatDate, formatMoney } from "@/lib/format";
 import { fmt } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -128,6 +129,7 @@ export function PurchasePanel({ productId, variants, currency, altCurrency, intl
         <button type="button" disabled={soldOut || pending}
           onClick={() => startTransition(async () => {
             const res = await addToCartAction(store, variant.id, qty);
+            if (res.ok || res.error === "PREVIEW") flyToCart(document.querySelector("[data-gallery-main] img"));
             if (res.ok) {
               setCartCount(res.count);
               toast(res.capped ? shopLabels.cart.maxQuantity : shopLabels.cart.added, res.capped ? "info" : "success");

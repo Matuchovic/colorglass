@@ -43,7 +43,7 @@ export function ProductCard({ product, store, t, showAltPrice, priority = false 
           <WishlistButton productId={product.id} className="-mr-1.5 -mt-1.5 size-8" />
         </div>
         <Link href={href} className="block focus-visible:outline-offset-4" tabIndex={-1} aria-hidden="true">
-          <div className="relative -mt-3 aspect-[4/3] w-full overflow-hidden">
+          <div className="relative -mt-3 aspect-[4/3] w-full overflow-hidden" style={{ viewTransitionName: `p-${product.slug}` }}>
             {product.image && (
               <Image src={product.image.url} alt="" fill sizes="(min-width: 1280px) 220px, (min-width: 768px) 30vw, 45vw"
                 preload={priority} className="object-contain transition duration-500 ease-out group-hover:-rotate-3 group-hover:scale-[1.08]" />

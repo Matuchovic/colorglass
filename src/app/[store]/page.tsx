@@ -7,7 +7,6 @@ import { TechBanner } from "@/components/color/tech-banner";
 import { Benefits } from "@/components/color/benefits";
 import { ProductTabs } from "@/components/color/product-tabs";
 import { Stories } from "@/components/color/stories";
-import { RevealObserver } from "@/components/color/reveal";
 import type { CSSProperties } from "react";
 import { ProductCard } from "@/components/product/product-card";
 import { getDictionary } from "@/i18n";
@@ -57,7 +56,6 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <RevealObserver />
       <Hero store={code} t={t} freeShipping={freeShipping} />
       <div className="relative z-20 -mt-10 rounded-t-[36px] bg-white pt-7 lg:-mt-[46px] lg:rounded-t-[44px] lg:pt-[34px]">
         <div className="container-page space-y-6 lg:space-y-[18px]">

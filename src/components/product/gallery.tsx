@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
 type Img = { id: string; url: string; alt: string };
 
 /** Galerie produktu: náhledy, video, zvětšení (lightbox) s ovládáním klávesnicí. */
-export function ProductGallery({ images, videoEmbed, labels }: {
+export function ProductGallery({ images, videoEmbed, labels, transitionName }: {
+  transitionName?: string;
   images: Img[];
   videoEmbed: string | null;
   labels: { zoom: string; prev: string; next: string; image: string; video: string; close: string };
@@ -38,7 +39,8 @@ export function ProductGallery({ images, videoEmbed, labels }: {
 
   return (
     <div>
-      <div className="relative aspect-square overflow-hidden rounded-card bg-surface">
+      <div data-gallery-main="" className="relative aspect-square overflow-hidden rounded-card bg-surface"
+        style={transitionName && current && current === images[0] ? { viewTransitionName: transitionName } : undefined}>
         {isVideo ? (
           <iframe src={videoEmbed} title={labels.video} className="absolute inset-0 size-full" loading="lazy"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />

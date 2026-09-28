@@ -1,5 +1,6 @@
 "use client";
 
+import { flyToCart } from "@/lib/fly-to-cart";
 import Link from "next/link";
 import { useTransition } from "react";
 import { CartIcon, HeartIcon } from "@/components/icons";
@@ -46,9 +47,11 @@ export function AddToCartButton({ variantId, slug, variantCount, disabled }: { v
       disabled={disabled || pending}
       aria-label={disabled ? labels.product.outOfStock : labels.product.addToCart}
       aria-busy={pending}
-      onClick={() =>
+      onClick={(e) => {
+        const card = e.currentTarget.closest("article");
         startTransition(async () => {
           const res = await addToCartAction(store, variantId, 1);
+          if (res.ok || res.error === "PREVIEW") flyToCart(card);
           if (res.ok) {
             setCartCount(res.count);
             toast(res.capped ? labels.cart.maxQuantity : labels.cart.added, res.capped ? "info" : "success");
@@ -56,8 +59,8 @@ export function AddToCartButton({ variantId, slug, variantCount, disabled }: { v
           else if (res.error === "RATE_LIMITED") toast(labels.errors.rateLimited, "error");
           else if (res.error === "UNAVAILABLE") toast(labels.product.outOfStock, "error");
           else toast(labels.cart.error, "error");
-        })
-      }
+        });
+      }}
       className={cn(base, "bg-brand-600 hover:bg-brand-700 disabled:cursor-not-allowed disabled:bg-ink-300 disabled:shadow-none", pending && "animate-pulse")}
     >
       <CartIcon size={21} />

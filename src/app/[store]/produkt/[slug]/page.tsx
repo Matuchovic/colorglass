@@ -110,7 +110,7 @@ export default async function ProductPage({ params }: Args) {
         { name: p.name },
       ]} />
       <div className="mt-5 grid gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
-        <ProductGallery images={data.images} videoEmbed={videoEmbed(p.video_url)}
+        <ProductGallery images={data.images} videoEmbed={videoEmbed(p.video_url)} transitionName={`p-${p.slug}`}
           labels={{ zoom: t.product.zoom, prev: t.product.galleryPrev, next: t.product.galleryNext, image: t.product.image, video: t.product.video, close: t.common.close }} />
         <div>
           {data.brand && (
